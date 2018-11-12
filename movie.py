@@ -77,6 +77,6 @@ for cat in category_html.select('div.sayfa-sag > div#sag-kategori-tablo'):
         movie_doc = {
             'movies': movie_list
         }
-        # print(movie_doc)
-        falcon_resp = requests.post("http://127.0.0.1:8000/data", json=movie_doc)
-        print(falcon_resp.status_code)
+        print(movie_doc)
+        # falcon_resp = requests.post("http://127.0.0.1:8000/data", json=movie_doc)
+        # print(falcon_resp.status_code)
