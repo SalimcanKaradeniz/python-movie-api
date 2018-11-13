@@ -59,7 +59,7 @@ for cat in category_html.select('div.sayfa-sag > div#sag-kategori-tablo'):
 
                         movie_list.append({
                             'category': category_name,
-                            'movie_name': movie_name,
+                            'movie_name': movie_name.replace('izle', '').strip(),
                             'movie_path': movie_orgin_path,
                             'movie_description': movie_description,
                             'image': img,
