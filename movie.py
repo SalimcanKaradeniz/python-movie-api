@@ -28,34 +28,41 @@ for cat in category_html.select('div.sayfa-sag > div#sag-kategori-tablo'):
             img = "https://www.fullhdfilmizleten.org{}".format(img_src)
             imdb = movie_info.select_one('div.imdb > b').get_text(strip=True)
             type = movie_info.select_one('div.bilgi.gizle > ul.ek > li.tur').get_text(strip=True)
-            movie_description = movie_info.select_one('div.bilgi.gizle > div.aciklama').get_text(strip=True)
             vision_date = movie_info.select('div.bilgi.gizle > ul.ek > li.a')[1].get_text(strip=True)
             time = movie_info.select('div.bilgi.gizle > ul.ek > li')[4].get_text(strip=True)
 
-
             movie_url = "https://www.fullhdfilmizleten.org{}".format(m_url)
             movie_header = {
-            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
 
             movie_resp = session.post(movie_url, headers=movie_header)
             movie_data = BeautifulSoup(movie_resp.content, 'html.parser')
 
             for movies in movie_data.select('div#sayfa > div#sayfa-ic > div#film-tab'):
                 try:
-                    movie_path = movies.select('div.tab-cizgi > ul.tab-baslik.dropit > li.dropit-trigger > ul.dropit-submenu > li > a')[0].attrs['href']
+                    movie_path = movies.select(
+                        'div.tab-cizgi > ul.tab-baslik.dropit > li.dropit-trigger > ul.dropit-submenu > li > a')[
+                        0].attrs['href']
                 except:
                     continue
 
                 movie_origin_url = "https://www.fullhdfilmizleten.org{}".format(movie_path)
-                movie_origin_header = {"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+                movie_origin_header = {
+                    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
                 movie_origin_resp = session.post(movie_origin_url, headers=movie_origin_header)
 
                 movie_orgin_data = BeautifulSoup(movie_origin_resp.content, 'html.parser')
 
                 for movie_orgin in movie_orgin_data.select('div#sayfa > div#sayfa-ic'):
                     try:
-                        movie_orgin_path = movie_orgin.select('div#film-tab > div.tab-dis > div.tab-icerik > iframe')[0].attrs['src']
-                        movie_name = movie_orgin.select('div.izle-ust > div.resim-bg.test > div.resim-bg-ic > div.slayt-tablo > div.slayt-orta > h1 > a')[1].get_text(strip=True)
+                        movie_orgin_path = \
+                        movie_orgin.select('div#film-tab > div.tab-dis > div.tab-icerik > iframe')[0].attrs['src']
+                        movie_name = movie_orgin.select(
+                            'div.izle-ust > div.resim-bg.test > div.resim-bg-ic > div.slayt-tablo > div.slayt-orta > h1 > a')[1].get_text(strip=True)
+
+                        movie_description = movie_orgin.select_one(
+                            'div.izle-ust > div.resim-bg.test > div.resim-bg-ic > div.slayt-tablo > div.slayt-orta > div.slayt-aciklama').get_text(
+                            strip=True)
 
                         movie_list.append({
                             'category': category_name,
