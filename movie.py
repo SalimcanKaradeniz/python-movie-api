@@ -56,13 +56,14 @@ for cat in category_html.select('div.sayfa-sag > div#sag-kategori-tablo'):
                 for movie_orgin in movie_orgin_data.select('div#sayfa > div#sayfa-ic'):
                     try:
                         movie_orgin_path = \
-                        movie_orgin.select('div#film-tab > div.tab-dis > div.tab-icerik > iframe')[0].attrs['src']
+                            movie_orgin.select('div#film-tab > div.tab-dis > div.tab-icerik > iframe')[0].attrs['src']
                         movie_name = movie_orgin.select(
                             'div.izle-ust > div.resim-bg.test > div.resim-bg-ic > div.slayt-tablo > div.slayt-orta > h1 > a')[1].get_text(strip=True)
 
                         movie_description = movie_orgin.select_one(
                             'div.izle-ust > div.resim-bg.test > div.resim-bg-ic > div.slayt-tablo > div.slayt-orta > div.slayt-aciklama').get_text(
                             strip=True)
+                        # {'uid': 'f50ce6bb-f78d-4e5a-951d-236bf2eed005'}
 
                         movie_list.append({
                             'category': category_name,
